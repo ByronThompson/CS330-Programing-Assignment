@@ -5,7 +5,9 @@ import Tools.VectorMath;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Path {
+public class Path implements Thing{
+    private float[] position = {0,0,0};
+    private float orientation = 0;
     private int id = 0;
 
     private ArrayList<Point> pathPoints = new ArrayList<>();
@@ -37,6 +39,11 @@ public class Path {
     }
 
     private void recalculatePathParams(){
+        if(pathPoints.size() > 0 && this.position != this.pathPoints.get(0).getPosition()){
+            this.position = pathPoints.get(0).getPosition();
+            this.orientation = pathPoints.get(0).getOrientation();
+        }
+
         for(int i = 1; i < pathPoints.size(); i++){
             float l = Math.abs(VectorMath.magnitudeVec3D(VectorMath.subVec3D(pathPoints.get(i).getPosition(), pathPoints.get(i-1).getPosition())));
             this.lengths.add(l);
@@ -54,5 +61,51 @@ public class Path {
     }
 
 
+    @Override
+    public float[] getPosition() {
+        return this.position;
+    }
 
+    @Override
+    public Path setPosition(float[] newPosition) {
+        float[] deltaP = VectorMath.subVec3D(newPosition, this.position);
+
+        return this.modifyPosition(deltaP);
+    }
+
+    @Override
+    public Path modifyPosition(float[] deltaP) {
+        for(Point p : pathPoints){
+            p.modifyPosition(deltaP);
+        }
+
+        this.position = VectorMath.addVec3D(this.position, deltaP);
+
+        return this;
+    }
+
+    @Override
+    public float getOrientation() {
+        return this.orientation;
+    }
+
+    @Override
+    public Path setOrientation(float newOrientation) {
+        float[] originalPos = this.position;
+        this.setPosition(new float[]{0,0,0});
+
+
+
+        return null;
+    }
+
+    @Override
+    public Path modifyOrientation(float deltaO) {
+        return null;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }

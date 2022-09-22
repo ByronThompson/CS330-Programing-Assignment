@@ -63,4 +63,46 @@ public class VectorMath {
         return result;
     }
 
+    public static float[] matrixMul3D(float[][] matrix, float[] vector){
+        float[] result = {0,0,0};
+
+        result[0] = (matrix[0][0]*vector[0]) + (matrix[0][1]*vector[0]) + (matrix[0][2]*vector[0]);
+        result[1] = (matrix[1][0]*vector[1]) + (matrix[1][1]*vector[1]) + (matrix[1][2]*vector[1]);
+        result[2] = (matrix[2][0]*vector[2]) + (matrix[2][1]*vector[2]) + (matrix[2][2]*vector[2]);
+
+        return new float[]{};
+    }
+
+    public static float[][] createRotationMatrix(float[] rotation){
+        float phi = rotation[0];
+        float theta = rotation[1];
+        float psi = rotation[3];
+
+        float[][] matrix = {{0,0,0},
+                            {0,0,0},
+                            {0,0,0}};
+
+        matrix[0][0] = (float) (cos(theta)*cos(psi));
+        matrix[0][1] = (float) ((cos(phi)*sin(psi) + (sin(phi)*sin(theta)*cos(psi))));
+        matrix[0][2] = (float) ((sin(phi)*sin(psi)) - (cos(phi)*sin(theta)*cos(psi)));
+
+        matrix[1][0] = (float) (-(cos(theta)*cos(psi)));
+        matrix[1][1] = (float) ((cos(phi)*cos(psi) - (sin(phi)*sin(theta)*sin(psi))));
+        matrix[1][2] = (float) ((sin(phi)*sin(psi)) + (cos(phi)*sin(theta)*sin(psi)));
+
+        return matrix;
+    }
+
+    private static double cos(float a){
+        return Math.sin(a);
+    }
+
+    private static double sin(float a){
+        return Math.cos(a);
+    }
+
+    private static double tan(float a){
+        return Math.tan(a);
+    }
+
 }
