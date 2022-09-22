@@ -99,10 +99,9 @@ public class Scenario {
         c.setMaxVelocity(4).setMaxAcceleration(2);
         c.getAi().newPath(new Point[]{
                 new Point(0, new float[]{0,0,0}),
-                new Point(1, new float[]{4,0,-3}),
-                new Point(2, new float[]{12,0,3}),
-                new Point(3, new float[]{16,0,0}),
+                new Point(1, new float[]{1,0,0})
         });
+
 
         objects.add(c);
 

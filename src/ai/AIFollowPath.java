@@ -42,8 +42,9 @@ public class AIFollowPath extends AISeek{
 
     @Override
     public void AISteer(){
-        followPath();
-        seek();
+        this.path.setOrientation((float) (Math.PI/2));
+        //followPath();
+        //seek();
     }
 
     protected void followPath(){

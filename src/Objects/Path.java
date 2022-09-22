@@ -94,9 +94,18 @@ public class Path implements Thing{
         float[] originalPos = this.position;
         this.setPosition(new float[]{0,0,0});
 
+        float[][] rotationMatrix = VectorMath.createRotationMatrix(new float[]{0, newOrientation,0});
 
+        for(Point p : pathPoints){
+            System.out.println("Pre-Rotate: " + p.getPosition()[0] + " ," + p.getPosition()[2]);
+            p.setPosition(VectorMath.matrixMul3D(rotationMatrix, p.getPosition()));
+            System.out.println("Post-Rotate: " + p.getPosition()[0] + " ," + p.getPosition()[2]);
+        }
 
-        return null;
+        this.setPosition(originalPos);
+        this.orientation = newOrientation;
+
+        return this;
     }
 
     @Override
