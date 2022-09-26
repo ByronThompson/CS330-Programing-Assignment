@@ -34,7 +34,8 @@ public class Scenario {
         System.out.println("""
                 To select a scenario, type the number next to the scenario you wish to load:
                 Custom Scenario          -> 0
-                Programming Assignment 1 -> 1""");
+                Programming Assignment 1 -> 1
+                Programming Assignment 2 -> 2""");
 
         // Enter data using BufferReader
         BufferedReader reader = new BufferedReader(
