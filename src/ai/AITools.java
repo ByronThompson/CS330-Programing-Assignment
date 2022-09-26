@@ -1,5 +1,6 @@
 package ai;
 
+import Objects.Path;
 import Objects.Thing;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ public class AITools {
             case "flee" -> AIFlee.class;
             case "seek" -> AISeek.class;
             case "arrive" -> AIArrive.class;
-            case "followpath" -> AIFollowPath.class;
+            case "followPath" -> AIFollowPath.class;
             default -> AIContinue.class;
         };
 
@@ -28,7 +29,7 @@ public class AITools {
 
 
     public static void configureAI(AI ai, ArrayList<Thing> objects){
-        if (AIFlee.class.equals(ai.getClass()) || AISeek.class.equals(ai.getClass()) || AIFollowPath.class.equals(ai.getClass())) {
+        if (AIFlee.class.equals(ai.getClass()) || AISeek.class.equals(ai.getClass())) {
             System.out.println("ID of target: ");
             ai.setTarget(findObject(Integer.parseInt(getInput()), objects));
         }else if(AIArrive.class.equals(ai.getClass())){
@@ -43,6 +44,12 @@ public class AITools {
 
             System.out.println("Time to Target: ");
             ai.setParameter("timeToTarget", Float.parseFloat(getInput()));
+        }else if(AIFollowPath.class.equals(ai.getClass())){
+            System.out.println("ID of path: ");
+            ai.setPath((Path) findObject(Integer.parseInt(getInput()), objects));
+
+            System.out.println("Path Offset: ");
+            ai.setParameter("pathOffset", Float.parseFloat(getInput()));
         }
     }
 

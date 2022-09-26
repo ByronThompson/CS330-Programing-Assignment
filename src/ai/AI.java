@@ -23,7 +23,8 @@ public interface AI {
     default AI addPointToPath(Point p){ return this; }
     default AI addPointToPath(Point p, int index){ return this; }
     default AI setPath(Path path){ return this; }
-    default AI newPath(Point[] points){return this; }
+    default AI newPath(int id, Point[] points){return this; }
+
 
     AI setParameter(String parameterName, float parameterValue);    // Interface for allowing manipulation of AI that have non-standard parameters (Such as Arrives Slowing, and arrival radii)
 

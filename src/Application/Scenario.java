@@ -89,23 +89,28 @@ public class Scenario {
     }
 
     /**
-     * The Scenario for Programming Assignment 1
+     * The Scenario for Programming Assignment 2
      * @return
      */
     private static ArrayList<Thing> PA2(){
         ArrayList<Thing> objects = new ArrayList<>();
 
-        Creature c = new Creature(2603, new float[]{20, 0, 95}, new float[]{0, 0, 0}, (float) ((3*Math.PI)/4), "followpath");
-        c.setMaxVelocity(4).setMaxAcceleration(2);
-        c.getAi().newPath(new Point[]{
-                new Point(0, new float[]{0,0,0}),
-                new Point(1, new float[]{1,0,0})
-        });
+        Path p = new Path(0, new Point(1, new float[]{0,0,90})
+                                , new Point(3, new float[]{-20,0,65})
+                                , new Point(4, new float[]{20,0,40})
+                                , new Point(5, new float[]{-40,0,15})
+                                , new Point(6, new float[]{40,0,-10})
+                                , new Point(7, new float[]{-60,0,-35})
+                                , new Point(8, new float[]{60,0,-60})
+                                , new Point(1, new float[]{0,0,-85}));
 
+        Creature a = new Creature(2701, new float[]{20, 0, 95}, new float[]{0, 0, 0}, 0, "followPath");
+        a.setMaxVelocity(4).setMaxAcceleration(2);
+        a.getAi().setPath(p).setParameter("pathOffset", 0.04F);
 
-        objects.add(c);
+        objects.add(a);
 
-        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50);
+        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(125);
 
         return objects;
     }
@@ -158,7 +163,8 @@ public class Scenario {
                     CREATE SIMULATION OBJECTS:
                     Create Character  -> 0
                     Create Point      -> 1
-                    Back              -> 2""");
+                    Create Path       -> 2
+                    Back              -> 3""");
 
             // Enter data using BufferReader
             BufferedReader reader = new BufferedReader(
@@ -178,7 +184,8 @@ public class Scenario {
             switch(selection){
                 case 0 -> a = createCharacter(objects);
                 case 1 -> a = createPoint();
-                case 2 -> {
+                case 2 -> a = createPath();
+                case 3 -> {
                     break menu;
                 }
                 default -> System.out.println("Incorrect input, try again");
@@ -221,9 +228,16 @@ public class Scenario {
         }
     }
 
-    private static Thing createPoint() {
-        System.out.println("ID:");
-        int id = Integer.parseInt(getInput());
+    private static Point createPoint(int... ar) {
+        int id = 0;
+
+        if(ar != null){
+             id = ar[0];
+        }else{
+            System.out.println("ID:");
+            id = Integer.parseInt(getInput());
+        }
+
 
         System.out.println("Initial Position x,y,z :");
         float[] inPos = getVector(getInput());
@@ -231,7 +245,7 @@ public class Scenario {
         return new Point(id, inPos);
     }
 
-    private static Thing createCharacter(ArrayList<Thing> objects) {
+    private static Creature createCharacter(ArrayList<Thing> objects) {
         System.out.println("ID:");
         int id = Integer.parseInt(getInput());
 
@@ -258,6 +272,39 @@ public class Scenario {
         AITools.configureAI(a.getAi(), objects);
 
         return a;
+    }
+
+    private static Path createPath(){
+        System.out.println("ID:");
+        int id = Integer.parseInt(getInput());
+
+        ArrayList<Point> points = new ArrayList<>();
+
+        menu: while (true){
+            System.out.println("""
+                    EDIT PATH:
+                    Add point  -> 0
+                    Finish     -> 1""");
+
+            int selection = Integer.parseInt(getInput());
+            switch(selection){
+                case 0:
+                    points.add(createPoint(0));
+                    break;
+                case 1:
+                    break menu;
+                default:
+                    System.out.println("Incorrect input, try again");
+            }
+
+            System.out.println(points.size());
+        }
+
+        Path p = new Path(id, points.toArray(new Point[0]));
+
+        System.out.println(p.pathPoints.size());
+
+        return p;
     }
 
     private static float[] getVector(String in){
