@@ -11,6 +11,7 @@ public class Settings {
     private float timeStep = 0.5F;
     private float maxSimTime = 100;
     private boolean simulate = true;
+    private boolean simulationMode = false; // Whether the simulation is intended for 2D or 3D. FALSE = 2D, TRUE = 3D
 
     private Settings(){
 
@@ -64,5 +65,16 @@ public class Settings {
 
     public boolean simulate(){return simulate;}
 
+    public Settings setSimulationMode(String mode){
+        if(mode.equals("3d")){
+            this.simulationMode = true;
+        }else{
+            this.simulationMode = false;
+        }
+
+        return this;
+    }
+
+    public boolean getSimulationMode(){return this.simulationMode; }
 
 }

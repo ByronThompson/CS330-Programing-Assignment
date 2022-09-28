@@ -1,5 +1,7 @@
 package Tools;
 
+import Globals.Settings;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,6 +24,10 @@ public class OutputHandler {
         outputString = outputString + add;
     }
 
+    public void addToHeadOfOutput(String add){
+        outputString = add + "\n" + outputString;
+    }
+
     public void newLine(){
         outputString = outputString + "\n";
     }
@@ -30,6 +36,10 @@ public class OutputHandler {
 
     public void writeFile(){
         System.out.print(outputString);
+
+        if(System.console() != null){
+            addToHeadOfOutput(Settings.getInstance().getSimulationMode() ? "3D" : "2D");
+        }
 
         // Create new file
         try {

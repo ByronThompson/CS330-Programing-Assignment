@@ -173,14 +173,28 @@ public class Creature implements Updatable{
     }
 
     private void printStatus(){
-        OutputHandler.getInstance().addToOutput(Settings.getInstance().getSimTime() + ",");
-        OutputHandler.getInstance().addToOutput(this.id + ",");
-        OutputHandler.getInstance().addToOutput(this.position[0] + "," + this.position[2] + ",");
-        OutputHandler.getInstance().addToOutput(this.velocity[0] + "," + this.velocity[2] + ",");
-        OutputHandler.getInstance().addToOutput(this.acceleration[0] + "," + this.acceleration[2] + ",");
-        OutputHandler.getInstance().addToOutput(this.orientation + ",");
-        OutputHandler.getInstance().addToOutput(this.ai.getID() + ",");
-        OutputHandler.getInstance().addToOutput(this.collisionStatus + "");
+        OutputHandler output = OutputHandler.getInstance();
+        output.addToOutput(Settings.getInstance().getSimTime() + ",");
+        output.addToOutput(this.id + ",");
+
+        if(Settings.getInstance().getSimulationMode()){
+            // 3D Simulation Output
+
+            output.addToOutput(this.position[0] + "," + this.position[1] + "," + this.position[2] + ",");
+            output.addToOutput(this.velocity[0] + "," + this.velocity[1] + "," + this.velocity[2] + ",");
+            output.addToOutput(this.acceleration[0] + "," + this.acceleration[1] + "," + this.acceleration[2] + ",");
+        }else{
+            // 2D Simulation Output
+
+            output.addToOutput(this.position[0] + "," + this.position[2] + ",");
+            output.addToOutput(this.velocity[0] + "," + this.velocity[2] + ",");
+            output.addToOutput(this.acceleration[0] + "," + this.acceleration[2] + ",");
+        }
+
+        output.addToOutput(this.orientation + ",");
+        output.addToOutput(this.ai.getID() + ",");
+        output.addToOutput(this.collisionStatus + "");
+
 
         OutputHandler.getInstance().newLine();
     }

@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Scenario {
     /**
@@ -67,9 +68,9 @@ public class Scenario {
             b.setMaxVelocity(8).setMaxAcceleration(1.5F);
             b.getAi().setTarget(a);
 
-        Creature c = new Creature(2603, new float[]{-50, 0, 40}, new float[]{0, 0, 8}, (float) ((3*Math.PI)/4), "seek");
+        Creature c = new Creature(2603, new float[]{-50, 10, 40}, new float[]{0, 0, 8}, (float) ((3*Math.PI)/4), "seek");
             c.setMaxVelocity(8).setMaxAcceleration(2);
-            c.getAi().setTarget(a);
+            c.getAi().setTarget(b);
 
         Creature d = new Creature(2604, new float[]{50, 0, 75}, new float[]{-9, 0, 4}, (float) Math.PI, "arrive");
             d.setMaxVelocity(10).setMaxAcceleration(2);
@@ -84,7 +85,7 @@ public class Scenario {
         objects.add(c);
         objects.add(d);
 
-        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50);
+        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50).setSimulationMode("3d");
 
         return objects;
     }
@@ -96,14 +97,14 @@ public class Scenario {
     private static ArrayList<Thing> PA2(){
         ArrayList<Thing> objects = new ArrayList<>();
 
-        Path p = new Path(0, new Point(1, new float[]{0,0,90})
-                                , new Point(3, new float[]{-20,0,65})
-                                , new Point(4, new float[]{20,0,40})
-                                , new Point(5, new float[]{-40,0,15})
-                                , new Point(6, new float[]{40,0,-10})
-                                , new Point(7, new float[]{-60,0,-35})
-                                , new Point(8, new float[]{60,0,-60})
-                                , new Point(1, new float[]{0,0,-85}));
+        Path p = new Path(0, new Point(1, new float[]{0,10,90})
+                                , new Point(3, new float[]{-20,-10,65})
+                                , new Point(4, new float[]{20,10,40})
+                                , new Point(5, new float[]{-40,-10,15})
+                                , new Point(6, new float[]{40,10,-10})
+                                , new Point(7, new float[]{-60,-10,-35})
+                                , new Point(8, new float[]{60,10,-60})
+                                , new Point(1, new float[]{0,-10,-85}));
 
         Creature a = new Creature(2701, new float[]{20, 0, 95}, new float[]{0, 0, 0}, 0, "followPath");
         a.setMaxVelocity(4).setMaxAcceleration(2);
@@ -111,7 +112,7 @@ public class Scenario {
 
         objects.add(a);
 
-        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(125);
+        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(125).setSimulationMode("3d");
 
         return objects;
     }
@@ -209,7 +210,8 @@ public class Scenario {
                     EDIT SIMULATION SETTINGS:
                     Max simulation time  -> 0
                     Simulation Timestep  -> 1
-                    Back                 -> 2""");
+                    2D or 3D simulation  -> 2
+                    Back                 -> 3""");
 
             int selection = Integer.parseInt(getInput());
             switch(selection){
@@ -222,6 +224,10 @@ public class Scenario {
                     s.setTimeStep(Float.parseFloat(getInput()));
                     break;
                 case 2:
+                    System.out.print("2D or 3D simulation: ");
+                    s.setSimulationMode(getInput().toLowerCase(Locale.ROOT));
+                    break;
+                case 3:
                     break menu;
                 default:
                     System.out.println("Incorrect input, try again");

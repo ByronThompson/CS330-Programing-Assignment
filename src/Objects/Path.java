@@ -135,7 +135,7 @@ public class Path implements Thing{
 
     @Override
     public Path modifyOrientation(float deltaO) {
-        return null;
+        return setOrientation(this.orientation + deltaO);
     }
 
     @Override
