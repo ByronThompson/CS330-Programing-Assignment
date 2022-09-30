@@ -4,14 +4,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import GUI.MainMenu;
 import Globals.*;
 import Objects.*;
 import Tools.OutputHandler;
+
+import javax.swing.*;
 
 public class ApplicationMain {
     static ArrayList<Thing> worldObjects; //Create List for all world objects
 
     public static void main(String[] args){
+
+
+        JFrame frame = new JFrame("Calculator");
+        frame.setContentPane(new MainMenu().MainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
 
         int scenario = 2;
 
