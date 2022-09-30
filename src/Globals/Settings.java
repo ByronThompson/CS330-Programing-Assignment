@@ -66,11 +66,7 @@ public class Settings {
     public boolean simulate(){return simulate;}
 
     public Settings setSimulationMode(String mode){
-        if(mode.equals("3d")){
-            this.simulationMode = true;
-        }else{
-            this.simulationMode = false;
-        }
+        this.simulationMode = mode.equals("3d");
 
         return this;
     }

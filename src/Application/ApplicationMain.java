@@ -2,36 +2,44 @@ package Application;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import GUI.MainMenu;
 import Globals.*;
 import Objects.*;
+import Scenarios.Scenario;
+import Scenarios.ScenarioManager;
 import Tools.OutputHandler;
-
-import javax.swing.*;
 
 public class ApplicationMain {
     static ArrayList<Thing> worldObjects; //Create List for all world objects
 
     public static void main(String[] args){
+        try {
+            ScenarioManager.indexScenarios();
+        } catch (IOException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
+        //ArrayList<String> a = ScenarioManager.getScenarioNames();
 
-        JFrame frame = new JFrame("Calculator");
-        frame.setContentPane(new MainMenu().MainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-
+        MainMenu m = new MainMenu();
 
         int scenario = 2;
 
         if(System.console() != null){ // If running from the console, allow user to select a scenario, otherwise just run the default scenario
-            scenario = Scenario.chooseScenario();
+            //scenario = ScenarioManager.chooseScenario();
         }
 
-        worldObjects = Scenario.loadScenario(scenario); // load scenario
+        worldObjects = ScenarioManager.loadScenario(scenario); // load scenario
 
+
+
+
+    }
+
+    public static void run(){
         Settings s = Settings.getInstance(); // retrieve settings instance
 
         while(s.simulate()){ //While simulation is running
