@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import GUI.GUISecretary;
 import GUI.MainMenu;
 import Globals.*;
 import Objects.*;
@@ -22,25 +24,17 @@ public class ApplicationMain {
             e.printStackTrace();
         }
 
-        //ArrayList<String> a = ScenarioManager.getScenarioNames();
-
         MainMenu m = new MainMenu();
-
-        int scenario = 2;
-
-        if(System.console() != null){ // If running from the console, allow user to select a scenario, otherwise just run the default scenario
-            //scenario = ScenarioManager.chooseScenario();
-        }
-
-        worldObjects = ScenarioManager.loadScenario(scenario); // load scenario
-
-
-
 
     }
 
-    public static void run(){
+    public static void run(String name){
         Settings s = Settings.getInstance(); // retrieve settings instance
+
+        worldObjects = ScenarioManager.loadScenario(name);
+        OutputHandler.getInstance().resetOutput();
+        s.resetSimulation();
+
 
         while(s.simulate()){ //While simulation is running
             updateLoop(); // Update the world objects
@@ -51,13 +45,15 @@ public class ApplicationMain {
         OutputHandler.getInstance().writeFile();
 
         // If running in the console, execute Plotter Program to display output
-        if(System.console() != null && new File("Plotter.py").exists()){
+        if(new File("Plotter.py").exists()){
             try {
                 Runtime.getRuntime().exec("python Plotter.py");
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
+
+        ScenarioManager.resetScenarios();
     }
 
     /**

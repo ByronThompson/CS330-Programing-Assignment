@@ -10,14 +10,20 @@ import java.util.ArrayList;
 
 public class ProgrammingAssignment2Scenario implements Scenario{
     public final static String title = "Programming Assignment 2";
+    private ArrayList<Thing> objects;
 
     public ProgrammingAssignment2Scenario(){
-
+        reset();
     }
 
     @Override
     public ArrayList<Thing> load() {
-        ArrayList<Thing> objects = new ArrayList<>();
+        return objects;
+    }
+
+    @Override
+    public void reset() {
+        this.objects = new ArrayList<>();
 
         Path p = new Path(0, new Point(1, new float[]{0,0,90})
                 , new Point(3, new float[]{-20,0,65})
@@ -32,13 +38,19 @@ public class ProgrammingAssignment2Scenario implements Scenario{
         a.setMaxVelocity(4).setMaxAcceleration(2);
         a.getAi().setPath(p).setParameter("pathOffset", 0.04F);
 
+        objects.add(p);
         objects.add(a);
 
-        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(125);
 
-        return objects;
     }
 
     public String getTitle(){return title; }
+
+    @Override
+    public ArrayList<Thing> getObjects() {
+        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(125);
+        return objects;
+    }
+
 
 }

@@ -37,9 +37,9 @@ public class OutputHandler {
     public void writeFile(){
         System.out.print(outputString);
 
-        if(System.console() != null){
+        //if(System.console() != null){
             addToHeadOfOutput(Settings.getInstance().getSimulationMode() ? "3D" : "2D");
-        }
+        //}
 
         // Create new file
         try {
@@ -60,5 +60,9 @@ public class OutputHandler {
             System.out.println("An error occurred writing to the file.");
             e.printStackTrace();
         }
+    }
+
+    public void resetOutput(){
+        this.outputString = "";
     }
 }

@@ -73,4 +73,10 @@ public class Settings {
 
     public boolean getSimulationMode(){return this.simulationMode; }
 
+    public Settings resetSimulation(){
+        this.simTime = 0;
+        this.simulate = true;
+        return this;
+    }
+
 }

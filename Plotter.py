@@ -183,21 +183,21 @@ def Plot3D():
             j = [m.y[c], m.vYp[c]]
             k = [m.z[c], m.vZp[c]]  # current z, current z + z velocity
 
-            plt.plot(i, j, k, color='#5beb34', linewidth=0.5)  # green
+            plt.plot(i, k, j, color='#5beb34', linewidth=0.5)  # green
 
         for c in range(0, len(m.x)):  # Plot linear acceleration data
             i = [m.x[c], m.laXp[c]]  # current x, current x + x linear acceleration
             j = [m.y[c], m.laYp[c]]
             k = [m.z[c], m.laZp[c]]  # current z, current z + z linear acceleration
 
-            plt.plot(i, j, k, color='blue', linewidth=0.5)
+            plt.plot(i, k, j, color='blue', linewidth=0.5)
 
         # add red dots to the start and end of each mover's trail
-        plt.plot(m.x[0], m.y[0], m.z[0], color='red', marker='o', markerfacecolor='red', markersize=3)  # mark start position
-        plt.plot(m.x[-1], m.y[-1], m.z[-1], color='red', marker='o', markerfacecolor='red', markersize=4)  # mark end position
+        plt.plot(m.x[0], m.z[0], m.y[0], color='red', marker='o', markerfacecolor='red', markersize=3)  # mark start position
+        plt.plot(m.x[-1], m.z[-1], m.y[-1], color='red', marker='o', markerfacecolor='red', markersize=4)  # mark end position
 
         # plot position
-        plt.plot(m.x, m.y, m.z, color='red', linewidth=1)
+        plt.plot(m.x, m.z, m.y, color='red', linewidth=1)
 
     ax.axes.set_xlim3d(left=-100, right=100)
     ax.axes.set_ylim3d(top=-100, bottom=100)

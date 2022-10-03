@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 
 // This Class was originally named Character, but I got tired of all the warnings about ambiguity, so now it's called Creature
 public class Creature implements Updatable{
+    private final String name = "Character";
     private final int id;
 
     private float[] position;
@@ -36,6 +37,11 @@ public class Creature implements Updatable{
             }
         ai.setOwner(this);
 
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

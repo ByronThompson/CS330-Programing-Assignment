@@ -1,6 +1,7 @@
 package Objects;
 
 public class Point implements Thing{
+    private final String name = "Point";
 
     private float[] position;
 
@@ -10,6 +11,11 @@ public class Point implements Thing{
     public Point(int id, float[] position){
         this.id = id;
         this.position = position;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

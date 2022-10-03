@@ -8,14 +8,20 @@ import java.util.ArrayList;
 
 public class ProgrammingAssignment1Scenario implements Scenario{
     public final static String title = "Programming Assignment 1";
+    private ArrayList<Thing> objects;
 
     public ProgrammingAssignment1Scenario(){
-
+        reset();
     }
 
     @Override
     public ArrayList<Thing> load() {
-        ArrayList<Thing> objects = new ArrayList<>();
+        return objects;
+    }
+
+    @Override
+    public void reset() {
+        this.objects = new ArrayList<>();
 
         Creature a = new Creature(2601, new float[]{0, 0, 0}, new float[]{0, 0, 0}, 0, "continue");
         a.setMaxVelocity(0).setMaxAcceleration(0);
@@ -40,11 +46,13 @@ public class ProgrammingAssignment1Scenario implements Scenario{
         objects.add(b);
         objects.add(c);
         objects.add(d);
-
-        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50);
-
-        return objects;
     }
 
     public String getTitle(){return title; }
+
+    @Override
+    public ArrayList<Thing> getObjects() {
+        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50);
+        return objects;
+    }
 }

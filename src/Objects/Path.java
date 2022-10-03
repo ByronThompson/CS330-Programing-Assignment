@@ -9,6 +9,7 @@ public class Path implements Thing{
     private float[] position = {0,0,0};
     private float orientation = 0;
     private int id = 0;
+    private final String name = "Path";
 
     public ArrayList<Point> pathPoints = new ArrayList<>();
     private ArrayList<Float> pathParams = new ArrayList<>();
@@ -85,6 +86,12 @@ public class Path implements Thing{
 
         return this;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     @Override
     public float[] getPosition() {
         return this.position;
