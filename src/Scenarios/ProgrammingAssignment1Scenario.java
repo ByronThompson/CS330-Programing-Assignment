@@ -52,7 +52,7 @@ public class ProgrammingAssignment1Scenario implements Scenario{
 
     @Override
     public ArrayList<Thing> getObjects() {
-        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50);
+        Settings.getInstance().setTimeStep(0.5F).setMaxSimTime(50).setSimulationMode("2d");
         return objects;
     }
 }

@@ -47,7 +47,7 @@ public class MainMenu {
         objectList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event){
                 if(!event.getValueIsAdjusting()){
-                    editObjectButton.setVisible(true);
+                    //editObjectButton.setVisible(true);
                 }
             }
         });
